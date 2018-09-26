@@ -20,7 +20,7 @@ public class UpdateAvengersHandler implements RequestHandler<Avenger, HandlerRes
 		
 		if(dao.search(avenger.getId()) != null) {
 			context.getLogger().log("[#] - Avenger found, updating...");
-			updateAvenger = dao.update(avenger);
+			updateAvenger = dao.saveOrUpdate(avenger);
 			context.getLogger().log("[#] - Avenger updating successfully");
 		} else {
 			throw new AvengerNotFoundException("[NotFound] - Avenger id: " + avenger.getId());

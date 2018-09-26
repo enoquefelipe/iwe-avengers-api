@@ -3,14 +3,6 @@ Feature: Perform integrated tests on the Avengers registration API
 Background:
 * url 'https://vwk623hry9.execute-api.us-east-1.amazonaws.com/dev'
 
-Scenario: Get Avenger by Id
-
-Given path 'avengers', 'aaaa-sdsad-sdsa-asds'
-When method get
-Then status 200
-And match response ==  {id: '#string', name: "Iron Man", secretIdentity: 'Tony Stark'}
-
-
 Scenario: Avanger not found
 
 Given path 'avengers', 'avanger-not-found'
@@ -21,10 +13,19 @@ Then status 404
 Scenario: Creates a new Avenger and search by Id
 
 Given path 'avengers'
-And request {name: 'Iron Man', secretIdentity: 'Tony Stark'}
+And request {name: 'Enoque', secretIdentity: 'Felipe'}
 When method post
 Then status 201
-And match response ==  {id: '#string', name: "Captain America", secretIdentity: 'Steve Rogers'}
+And match response == {id: '#string', name: 'Enoque', secretIdentity: 'Felipe'}
+
+* def savedAvenger = response
+
+Given path 'avengers', savedAvenger.id
+When method get
+Then status 200
+And match $ == savedAvenger
+
+
 
 
 Scenario: Delete Avenger
@@ -38,13 +39,6 @@ Scenario: Avanger not found for delete
 Given path 'avengers', 'aaaa'
 When method delete
 Then status 404
-
-
-
-
-
-
-
 
 
 Scenario: Update Avenger

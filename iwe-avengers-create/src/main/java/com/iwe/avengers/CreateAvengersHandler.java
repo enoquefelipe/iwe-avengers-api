@@ -13,7 +13,7 @@ public class CreateAvengersHandler implements RequestHandler<Avenger, HandlerRes
 	@Override
 	public HandlerResponse handleRequest(final Avenger avenger, final Context context) {
 
-		final Avenger avengerRetrieved = dao.create(avenger);
+		final Avenger avengerRetrieved = dao.saveOrUpdate(avenger);
 
 		context.getLogger().log("[#] - Avenger found " + avengerRetrieved.getName());
 
